@@ -13,6 +13,8 @@ _Advanced AI-powered dermatological diagnosis with explainable Grad-CAM visualiz
 
 [Live Demo](#)
 
+![demo](notebooks/SDP_Demo_0.png?raw=true "demo")
+
 </div>
 
 ---
