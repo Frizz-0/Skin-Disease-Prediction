@@ -2,4 +2,10 @@ backend/venv
 
 node_modules/
 
+readme - Copy.md
+
+IMPLEMENTATION_SUMMARY.txt
+
+QUICK_START.md
+
 GRADCAM_IMPLEMENTATION.md

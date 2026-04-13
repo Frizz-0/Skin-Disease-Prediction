@@ -11,29 +11,29 @@
 
 _Advanced AI-powered dermatological diagnosis with explainable Grad-CAM visualizations_
 
-[Live Demo](#) • [Documentation](#documentation) • [Paper](#research) • [Contributing](#contributing)
+[Live Demo](#)
 
 </div>
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [🎯 Overview](#overview)
-- [✨ Features](#features)
-- [🏗️ Architecture](#architecture)
-- [📊 Dataset](#dataset)
-- [🧠 Model Details](#model-details)
-- [🎨 Explainability](#explainability)
-- [⚙️ Installation](#installation)
-- [🚀 Quick Start](#quick-start)
-- [📖 Usage](#usage)
-- [🔌 API Reference](#api-reference)
-- [📈 Performance](#performance)
-- [🔮 Future Roadmap](#future-roadmap)
-- [📄 License](#license)
-- [🤝 Contributing](#contributing)
-- [📧 Contact](#contact)
+- [ Overview](#overview)
+- [ Features](#features)
+- [ Architecture](#architecture)
+- [ Dataset](#dataset)
+- [ Model Details](#model-details)
+- [ Explainability](#explainability)
+- [ Installation](#installation)
+- [ Quick Start](#quick-start)
+- [ Usage](#usage)
+- [ API Reference](#api-reference)
+- [ Performance](#performance)
+- [ Future Roadmap](#future-roadmap)
+- [ License](#license)
+- [ Contributing](#contributing)
+- [ Contact](#contact)
 
 ---
 
@@ -41,11 +41,11 @@ _Advanced AI-powered dermatological diagnosis with explainable Grad-CAM visualiz
 
 The **Skin Disease Prediction System** is a state-of-the-art deep learning application that leverages advanced computer vision to automatically diagnose over **114 skin diseases** with high accuracy. Built on the **Fitzpatrick17k** dataset and powered by **EfficientNet-B0**, this system provides:
 
-- 🎯 **Multi-task Learning**: Simultaneous disease classification and skin type detection
-- 🔍 **Real-time Inference**: Browser-based predictions with sub-second latency
-- 📱 **Mobile-Ready**: Progressive Web App with offline support
-- 🧠 **Explainable AI**: Grad-CAM visualizations showing model attention regions
-- 🌐 **Network-Accessible**: Run on PC, access from phone on same network
+- **Multi-task Learning**: Simultaneous disease classification and skin type detection
+- **Real-time Inference**: Browser-based predictions with su-second latency
+- **Mobile-Ready**: Progressive Web App with offline support
+- **Explainable AI**: Grad-CAM visualizations showing model attention regions
+- **Network-Accessible**: Run on PC, access from phone on same network
 
 ### Key Statistics
 
@@ -61,80 +61,37 @@ The **Skin Disease Prediction System** is a state-of-the-art deep learning appli
 
 ---
 
-## ✨ Features
+## Features
 
-### 🎯 Core Capabilities
+### Core Capabilities
 
-- ✅ **Multi-task Classification**: Disease + Skin Type simultaneous prediction
-- ✅ **Real-time Diagnosis**: Live camera feed processing
-- ✅ **Grad-CAM Explainability**: Visualize what the model sees
-- ✅ **Cross-platform**: Desktop, Tablet, Mobile support
-- ✅ **Offline-Capable**: ONNX inference in browser
-- ✅ **High Accuracy**: 94.2% top-1 accuracy on test set
+- **Multi-task Classification**: Disease + Skin Type simultaneous prediction
+- **Real-time Diagnosis**: Live camera feed processing
+- **Grad-CAM Explainability**: Visualize what the model sees
+- **Cross-platform**: Desktop, Tablet, Mobile support
+- **Offline-Capable**: ONNX inference in browser
+- **High Accuracy**: 94.2% top-1 accuracy on test set
 
-### 🛠️ Technical Features
+### Technical Features
 
-- ✅ **FastAPI Backend**: Production-grade REST API
-- ✅ **ONNX Runtime**: Hardware-accelerated inference
-- ✅ **Progressive Web App**: Install as native app
-- ✅ **Network-Accessible**: Multi-user support
-- ✅ **CORS Enabled**: Secure cross-origin requests
-- ✅ **Comprehensive Logging**: Full audit trail
+- **FastAPI Backend**: Production-grade REST API
+- **ONNX Runtime**: Hardware-accelerated inference
+- **Progressive Web App**: Install as native app
+- **Network-Accessible**: Multi-user support
+- **CORS Enabled**: Secure cross-origin requests
+- **Comprehensive Logging**: Full audit trail
 
-### 🎨 User Interface
+### User Interface
 
-- ✅ **Modern HUD Design**: Sci-fi inspired interface
-- ✅ **Real-time Scanning Animation**: Visual feedback
-- ✅ **Professional Dashboard**: Multiple metric displays
-- ✅ **Responsive Layout**: Adapts to all screen sizes
-- ✅ **Accessibility First**: WCAG 2.1 compliant
-
----
-
-## 🏗️ Architecture
-
-### System Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     User Interface (React)                   │
-│  • Camera Feed       • Diagnosis Display                      │
-│  • Grad-CAM Panel    • Risk Assessment                        │
-└────────────┬────────────────────────────────────┬────────────┘
-             │                                    │
-             ├──→ ONNX Runtime (Browser)         │
-             │    └─ Fast Inference              │
-             │                                    │
-             └──→ FastAPI Backend                │
-                  ├─ Disease Prediction          │
-                  ├─ Grad-CAM Generation         │
-                  └─ Model Management            │
-```
-
-### Data Flow
-
-```
-📷 Camera Input (224×224×3)
-    ↓
-🔄 Preprocessing (Normalization)
-    ↓
-🧠 EfficientNet-B0 Backbone
-    ├→ Disease Head (114 outputs)
-    └→ Skin Type Head (6 outputs)
-    ↓
-📊 Post-processing (Softmax)
-    ├→ Top-K Disease Predictions
-    └→ Skin Type Classification
-    ↓
-🎨 Grad-CAM Visualization (Backend)
-    └→ Attention Heatmap Overlay
-    ↓
-📱 Display Results to User
-```
+- **Modern HUD Design**: Sci-fi inspired interface
+- **Real-time Scanning Animation**: Visual feedback
+- **Professional Dashboard**: Multiple metric displays
+- **Responsive Layout**: Adapts to all screen sizes
+- **Accessibility First**: WCAG 2.1 compliant
 
 ---
 
-## 📊 Dataset
+## Dataset
 
 ### Fitzpatrick17k Dataset
 
@@ -171,32 +128,11 @@ Including but not limited to:
 
 ---
 
-## 🧠 Model Details
+## Model Details
 
 ### EfficientNet-B0 Architecture
 
 The model uses **EfficientNet-B0** as the backbone:
-
-```
-Input: 224×224×3 Images
-    ↓
-Stem (Conv 3×3, 32 filters)
-    ↓
-Mobile Inverted Bottleneck Blocks (×16)
-    ├ Expanding factor: 1, 6, 6, 6, 6, 6
-    ├ Kernel sizes: 3×3, 5×5
-    └ Squeeze-Excitation layers
-    ↓
-Head (1280 channels)
-    ↓
-Global Average Pooling
-    ↓
-Feature Vector (1280 dims)
-    ├→ Disease Head: FC(512) → ReLU → Dropout(0.3) → FC(114)
-    └→ Skin Type Head: FC(256) → ReLU → FC(6)
-    ↓
-Output: (Disease Logits, Skin Type Logits)
-```
 
 ### Key Characteristics
 
@@ -236,9 +172,7 @@ F1-Score (macro): 0.909
 Per-Disease Accuracy Range: 76% - 99%
 ```
 
----
-
-## 🎨 Explainability
+## Explainability
 
 ### Grad-CAM (Gradient-weighted Class Activation Mapping)
 
@@ -255,24 +189,9 @@ The system implements **Grad-CAM** for explainable AI:
 6. Visualization: Apply JET colormap + blend with image
 ```
 
-#### Why Grad-CAM?
-
-- 📍 **Localization**: Shows which image regions contributed to prediction
-- 🎯 **Class-Specific**: Unique heatmap for each disease class
-- ⚡ **Computationally Efficient**: Fast backward pass
-- 🔬 **Clinically Relevant**: Correlates with dermatologist focus areas
-
-#### Example Interpretation
-
-```
-Red regions (high intensity)      = High model attention
-Blue regions (low intensity)      = Low model attention
-Overlapping with affected area    = Good prediction indicator
-```
-
 ---
 
-## ⚙️ Installation
+## Installation
 
 ### Prerequisites
 
@@ -284,28 +203,38 @@ Overlapping with affected area    = Good prediction indicator
 ### Backend Setup
 
 ```bash
-# Navigate to backend directory
 cd backend
+```
 
-# Create virtual environment (optional but recommended)
+```bash
 python -m venv venv
-source venv/Scripts/activate  # On Windows
-# or
-source venv/bin/activate      # On macOS/Linux
+```
 
-# Install dependencies
+```bash
+source venv/Scripts/activate  # On Windows
+```
+
+or
+
+```bash
+source venv/bin/activate      # On macOS/Linux
+```
+
+```bash
 pip install -r requirements.txt
 ```
 
 ### Frontend Setup
 
 ```bash
-# Navigate to frontend directory
 cd frontend
+```
 
-# Install dependencies
+```bash
 npm install
+```
 
+```bash
 # (Optional) Build for production
 npm run build
 ```
@@ -345,7 +274,7 @@ npm run build
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Start Backend Server
 
@@ -354,30 +283,11 @@ cd backend
 python app.py
 ```
 
-**Expected Output:**
-
-```
-INFO:__main__:🖥️  Using device: cpu
-INFO:__main__:✅ Loaded 114 class names
-INFO:__main__:✅ Model loaded successfully
-INFO:__main__:🚀 Starting FastAPI Grad-CAM server...
-INFO:     Uvicorn running on http://0.0.0.0:8000
-```
-
 ### 2. Start Frontend (New Terminal)
 
 ```bash
 cd frontend
 npm run dev
-```
-
-**Output:**
-
-```
-VITE v5.0.0  ready in 1234 ms
-
-➜  Local:   http://localhost:5173/
-➜  Network: https://10.178.2.32:5173/
 ```
 
 ### 3. Access the Application
@@ -391,58 +301,6 @@ VITE v5.0.0  ready in 1234 ms
 2. Frame affected area in the box
 3. Click **Start Diagnosis**
 4. View results and Grad-CAM visualization
-
----
-
-## 📖 Usage
-
-### Web Interface
-
-```
-┌─────────────────────────────────┐
-│  Skin Disease Prediction System  │
-├─────────────────────────────────┤
-│                                  │
-│  [Initialize] [Start Diagnosis]  │  ← Controls
-│                                  │
-│     📷 Camera Feed               │  ← Live video
-│                                  │
-├─────────────────────────────────┤
-│  Disease: Keratosis Pilaris      │  ← Results
-│  Confidence: 94.2%               │
-│  Skin Type: Type III             │
-│  Risk Level: Moderate            │  ← Assessment
-└─────────────────────────────────┘
-```
-
-### API Usage (CURL)
-
-#### Health Check
-
-```bash
-curl http://localhost:8000/health
-```
-
-#### Prediction
-
-```bash
-curl -X POST http://localhost:8000/predict \
-  -H "Content-Type: application/json" \
-  -d '{
-    "image": "base64_encoded_image_string"
-  }'
-```
-
-#### Grad-CAM
-
-```bash
-curl -X POST http://localhost:8000/gradcam \
-  -H "Content-Type: application/json" \
-  -d '{
-    "image": "base64_encoded_image_string",
-    "classIdx": 44
-  }'
-```
 
 ---
 
@@ -531,18 +389,6 @@ Content-Type: application/json
 }
 ```
 
-#### 4. Heatmap Only
-
-```http
-POST /gradcam-heatmap-only
-Content-Type: application/json
-
-{
-  "image": "string (base64)",
-  "classIdx": 44
-}
-```
-
 ---
 
 ## 📈 Performance
@@ -575,71 +421,7 @@ Content-Type: application/json
 
 ---
 
-## 🔮 Future Roadmap
-
-### Short Term (Q2 2026)
-
-- [ ] Mobile app (React Native)
-- [ ] Batch processing API
-- [ ] User authentication & history
-- [ ] Export diagnosis reports (PDF)
-
-### Medium Term (Q3-Q4 2026)
-
-- [ ] Multi-modal input (video, images from gallery)
-- [ ] Real-time model updates
-- [ ] Advanced analytics dashboard
-- [ ] Integration with EHR systems
-
-### Long Term (2027)
-
-- [ ] Federated learning for privacy
-- [ ] Specialized models per skin condition type
-- [ ] Clinical validation studies
-- [ ] Regulatory compliance (FDA, CE mark)
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-### Citation
-
-If you use this project in research, please cite:
-
-```bibtex
-@software{skin_disease_prediction_2026,
-  title={Skin Disease Prediction System using EfficientNet-B0},
-  author={Your Name},
-  year={2026},
-  url={https://github.com/yourusername/skin-disease-prediction}
-}
-```
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
-
-### Development Guidelines
-
-- Follow **PEP 8** for Python code
-- Use **TypeScript** for React components
-- Write meaningful commit messages
-- Add tests for new features
-- Update documentation
-
----
-
-## 📚 Research & References
+## Research & References
 
 ### Papers
 
@@ -655,7 +437,7 @@ We welcome contributions! Please follow these steps:
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Backend Port Already in Use
 
@@ -687,21 +469,11 @@ print(torch.cuda.get_device_name(0))
 
 ---
 
-## 📧 Contact
-
-- **Author**: Your Name
-- **Email**: your.email@example.com
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-- **LinkedIn**: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-
----
-
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **Fitzpatrick17k Dataset** creators at Google Research & Stanford Medicine
 - **EfficientNet** authors: Mingxing Tan, Quoc V. Le
 - **Grad-CAM** authors: Ramprasaur Selvaraj, et al.
-- **Community** contributors and feedback
 
 ---
 
