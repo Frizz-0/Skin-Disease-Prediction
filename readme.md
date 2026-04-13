@@ -29,10 +29,6 @@ _Advanced AI-powered dermatological diagnosis with explainable Grad-CAM visualiz
 - [ Quick Start](#quick-start)
 - [ API Reference](#api-reference)
 - [ Performance](#performance)
-- [ Future Roadmap](#future-roadmap)
-- [ License](#license)
-- [ Contributing](#contributing)
-- [ Contact](#contact)
 
 ---
 
