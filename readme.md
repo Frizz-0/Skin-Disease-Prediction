@@ -1,6 +1,6 @@
-# 🏥 Skin Disease Prediction System
-
 <div align="center">
+
+# Skin Disease Prediction System
 
 ![Python](https://img.shields.io/badge/Python-3.8+-3776ab?style=flat-square&logo=python)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c?style=flat-square&logo=pytorch)
@@ -27,7 +27,6 @@ _Advanced AI-powered dermatological diagnosis with explainable Grad-CAM visualiz
 - [ Explainability](#explainability)
 - [ Installation](#installation)
 - [ Quick Start](#quick-start)
-- [ Usage](#usage)
 - [ API Reference](#api-reference)
 - [ Performance](#performance)
 - [ Future Roadmap](#future-roadmap)
@@ -37,7 +36,7 @@ _Advanced AI-powered dermatological diagnosis with explainable Grad-CAM visualiz
 
 ---
 
-## 🎯 Overview
+## Overview
 
 The **Skin Disease Prediction System** is a state-of-the-art deep learning application that leverages advanced computer vision to automatically diagnose over **114 skin diseases** with high accuracy. Built on the **Fitzpatrick17k** dataset and powered by **EfficientNet-B0**, this system provides:
 
@@ -172,6 +171,8 @@ F1-Score (macro): 0.909
 Per-Disease Accuracy Range: 76% - 99%
 ```
 
+---
+
 ## Explainability
 
 ### Grad-CAM (Gradient-weighted Class Activation Mapping)
@@ -304,94 +305,7 @@ npm run dev
 
 ---
 
-## 🔌 API Reference
-
-### Endpoints
-
-#### 1. Health Check
-
-```http
-GET /health
-```
-
-**Response:**
-
-```json
-{
-  "status": "ok",
-  "device": "cpu",
-  "model_loaded": true,
-  "num_classes": 114
-}
-```
-
-#### 2. Prediction
-
-```http
-POST /predict
-Content-Type: application/json
-
-{
-  "image": "string (base64)"
-}
-```
-
-**Response:**
-
-```json
-{
-  "disease": {
-    "name": "keratosis pilaris",
-    "index": 44,
-    "confidence": 0.942,
-    "top_3": [
-      {
-        "name": "keratosis pilaris",
-        "confidence": 0.942
-      },
-      {
-        "name": "lichen amyloidosis",
-        "confidence": 0.031
-      },
-      {
-        "name": "ichthyosis vulgaris",
-        "confidence": 0.015
-      }
-    ]
-  },
-  "skin_type": {
-    "name": "Type III",
-    "index": 2,
-    "confidence": 0.876
-  }
-}
-```
-
-#### 3. Grad-CAM Visualization
-
-```http
-POST /gradcam
-Content-Type: application/json
-
-{
-  "image": "string (base64)",
-  "classIdx": 44
-}
-```
-
-**Response:**
-
-```json
-{
-  "gradcam": "string (base64 PNG)",
-  "classIdx": 44,
-  "className": "keratosis pilaris"
-}
-```
-
----
-
-## 📈 Performance
+## Performance
 
 ### Inference Speed
 
@@ -480,7 +394,5 @@ print(torch.cuda.get_device_name(0))
 <div align="center">
 
 **Made with ❤️ for better dermatological diagnosis**
-
-[⬆ Back to Top](#-skin-disease-prediction-system)
 
 </div>
