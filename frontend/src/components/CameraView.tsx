@@ -1,7 +1,7 @@
 "use client";
 import { forwardRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Camera, ScanSearch, ShieldCheck } from "lucide-react";
+import { Camera, ScanSearch } from "lucide-react";
 
 const CameraView = forwardRef<HTMLVideoElement, any>(({ onCapture, isScanning }, ref) => {
   const [isCameraActive, setIsCameraActive] = useState(false);

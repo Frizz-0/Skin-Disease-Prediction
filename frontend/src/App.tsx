@@ -8,7 +8,7 @@ import GradCAMPanel from "./components/GradCAMPanel";
 import StatusSidebar from "./components/StatusSidebar";
 import { initModel, runSkinInference, generateGradCAM } from "./lib/inference";
 import { CLASS_NAMES } from "./lib/constants";
-import { BACKEND_URL } from "./lib/config";
+// import { BACKEND_URL } from "./lib/config";
 
 export default function Home() {
   const [isScanning, setIsScanning] = useState(false);

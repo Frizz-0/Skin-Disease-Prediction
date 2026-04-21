@@ -1,21 +1,22 @@
-import * as ort from 'onnxruntime-web';
+import { useCallback } from 'react';
+import { runSkinInference, generateGradCAM, initModel } from '../lib/inference';
 
-export async function runInference(imageElement: HTMLVideoElement) {
-    // 1. Load the model from your /public folder
-    const session = await ort.InferenceSession.create('X:\Python\ML\Projects\Skin_disease\Skin_Disease_Prediction\frontend\public\models\model.onnx', { 
-        executionProviders: ['webgl'] // Use the phone's GPU!
-    });
+/**
+ * Custom hook for running skin disease inference
+ * Wraps the lib/inference functions with React state management
+ */
+export function useInference() {
+  const init = useCallback(async () => {
+    return await initModel();
+  }, []);
 
-    // 2. Pre-process Image (Resize to 224x224 and Normalize)
-    // NOTE: You'll need a helper function here to get pixel data
-    const inputTensor = await preprocessImage(imageElement);
+  const runInference = useCallback(async (video: HTMLVideoElement) => {
+    return await runSkinInference(video);
+  }, []);
 
-    // 3. Run Inference
-    const feeds = { input: inputTensor };
-    const results = await session.run(feeds);
+  const getGradCAM = useCallback(async (video: HTMLVideoElement, classIdx?: number) => {
+    return await generateGradCAM(video, classIdx);
+  }, []);
 
-    return {
-        disease_logits: results.disease_output.data,
-        skin_logits: results.skin_output.data
-    };
+  return { init, runInference, getGradCAM };
 }
