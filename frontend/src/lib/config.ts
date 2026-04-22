@@ -1,16 +1,21 @@
 /**
  * Backend Configuration
- * Auto-detects correct IP for network access
+ * Uses environment variable for production, falls back to localhost for development
  */
 
 const getBackendURL = (): string => {
+  // Use environment variable if available (set in .env for dev, in Vercel dashboard for production)
+  if (import.meta.env.VITE_BACKEND_URL) {
+    return import.meta.env.VITE_BACKEND_URL;
+  }
+
   // If accessing from localhost, use localhost
   if (typeof window !== "undefined" && 
       (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
     return "http://localhost:8000";
   }
   
-  // If accessing from network (10.178.2.32), use same IP for backend
+  // If accessing from network, use same IP for backend
   if (typeof window !== "undefined") {
     return `http://${window.location.hostname}:8000`;
   }
