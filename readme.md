@@ -11,7 +11,7 @@
 
 _Advanced AI-powered dermatological diagnosis with explainable Grad-CAM visualizations_
 
-[Live Demo](#)
+[Live Demo](https://skindisease-prediction.vercel.app/)
 
 ![demo](notebooks/SDP_Demo_0.png?raw=true "demo")
 
