@@ -159,7 +159,7 @@ export default function PathologyReportCard({
                         </div>
 
                         <div className="mt-2">
-                            {isHighRisk || dermReport?.severity_level === 'CRITICAL' || dermReport?.severity_level === 'SEVERE' ? (
+                            {isHighRisk || dermReport?.severity_level === 'HIGH' ? (
                                 <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-[#c8452e] text-[11px] font-bold shadow-md tracking-wide">
                                     {dermReport ? `PRIORITY: ${dermReport.severity_level}` : 'HIGH PRIORITY : CONSULT SPECIALIST'}
                                 </span>
