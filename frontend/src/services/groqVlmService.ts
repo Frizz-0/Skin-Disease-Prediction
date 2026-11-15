@@ -1,0 +1,57 @@
+import type { VlmClinicalReport, PatientContext } from '../types/clinical';
+
+export interface ClinicalReportPayload {
+    imageBase64: string;
+    diagnosis: string;
+    confidence: number;
+    topDifferentials: string[];
+    erythemaIndex: number;
+    fitzpatrickType: number | null;
+    patientContext: PatientContext;
+}
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+
+export async function fetchVlmClinicalReport(
+    payload: ClinicalReportPayload
+): Promise<VlmClinicalReport> {
+    const safeConfidence = Number.isFinite(payload.confidence) ? Math.round(payload.confidence) : 0;
+    const safeErythema = Number.isFinite(payload.erythemaIndex) ? payload.erythemaIndex : 0.0;
+
+    const response = await fetch(`${API_BASE}/clinical-report`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            image: payload.imageBase64,
+            diagnosis: payload.diagnosis || 'Unknown Lesion',
+            confidence: safeConfidence,
+            top_differentials: payload.topDifferentials || [],
+            erythema_index: safeErythema,
+            fitzpatrick_type: typeof payload.fitzpatrickType === 'number' ? payload.fitzpatrickType : null,
+            body_location: payload.patientContext?.bodyLocation || 'Unspecified',
+            duration: payload.patientContext?.duration || 'Unspecified',
+            patient_symptoms: payload.patientContext?.symptoms || [],
+        }),
+    });
+
+    if (!response.ok) {
+        let errorDetail = `Server responded with status ${response.status}`;
+        try {
+            const errJson = await response.json();
+            if (typeof errJson?.detail === 'string') {
+                errorDetail = errJson.detail;
+            } else if (Array.isArray(errJson?.detail)) {
+                errorDetail = errJson.detail
+                    .map((e: { loc?: string[]; msg?: string }) => `${e.loc?.slice(1).join('.') || 'field'}: ${e.msg}`)
+                    .join(' | ');
+            }
+        } catch {
+            // Fallback to HTTP status message
+        }
+        throw new Error(errorDetail);
+    }
+
+    return (await response.json()) as VlmClinicalReport;
+}   
