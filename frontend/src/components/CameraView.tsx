@@ -351,14 +351,14 @@ const CameraView = forwardRef<CameraViewHandle, CameraViewProps>(({ activeMode, 
           <div className="absolute h-full w-[1px] bg-[#ff9900]/20" />
         </div>
 
-        <div className="absolute bottom-3 left-3 bg-black/80 border border-[#44301c] px-2.5 py-1 rounded text-[9px] text-gray-300 backdrop-blur-md">
+        {/* <div className="absolute bottom-3 left-3 bg-black/80 border border-[#44301c] px-2.5 py-1 rounded text-[9px] text-gray-300 backdrop-blur-md">
           <span className="text-[#ffaa22] font-semibold">
             {activeMode === 'RGB' && 'OPTICAL: NATURAL SPECULAR'}
             {activeMode === 'THERMAL' && 'SPECTRAL: FLIR IRONBOW ΔT'}
             {activeMode === 'SIASCOPY' && 'SPECTRAL: SIASCOPY MELANIN/Hb'}
             {activeMode === 'WOODS_LAMP' && "SPECTRAL: UV 365nm FLUORESCENCE"}
           </span>
-        </div>
+        </div> */}
       </div>
     </div>
   );

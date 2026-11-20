@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import CameraView, { type CameraViewHandle, type SpectralMode } from './CameraView';
-import { Activity, Crosshair, AlertCircle, Layers, Compass, CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
+import { Activity, Crosshair, CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
 import type { QualityTelemetry } from '../utils/imageQualityGate';
 
 interface CameraSectionProps {
@@ -93,10 +93,10 @@ export default function CameraSection({
                         <div className="absolute top-3 left-3 z-20 flex flex-wrap items-center gap-1.5 pointer-events-none max-w-[68%]">
                             <div
                                 className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full backdrop-blur-md text-[10px] font-semibold border transition-colors duration-200 ${quality.status === 'READY'
-                                        ? 'bg-black/65 border-emerald-400/40 text-emerald-300'
-                                        : quality.status === 'WARN'
-                                            ? 'bg-black/70 border-amber-400/40 text-amber-300'
-                                            : 'bg-black/75 border-rose-400/50 text-rose-300'
+                                    ? 'bg-black/65 border-emerald-400/40 text-emerald-300'
+                                    : quality.status === 'WARN'
+                                        ? 'bg-black/70 border-amber-400/40 text-amber-300'
+                                        : 'bg-black/75 border-rose-400/50 text-rose-300'
                                     }`}
                             >
                                 {quality.status === 'READY' && <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />}
@@ -119,13 +119,13 @@ export default function CameraSection({
                         </div>
                     )}
 
-                    <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center pointer-events-none text-white text-[11px] font-medium bg-black/45 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/10">
+                    {/* <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center pointer-events-none text-white text-[11px] font-medium bg-black/45 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/10">
                         <div className="flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-[#e4765d] animate-ping" />
                             <span>TARGET: {topPrediction ? topPrediction.className : 'CALIBRATING'}</span>
                         </div>
                         <span>FOV: DERMOSCOPIC x20</span>
-                    </div>
+                    </div> */}
                 </div>
 
                 <button
@@ -200,7 +200,7 @@ export default function CameraSection({
                                 </div>
                             </div>
 
-                            <div className="absolute left-3 top-1/2 -translate-y-1/2 flex flex-col gap-2 pointer-events-auto">
+                            {/* <div className="absolute left-3 top-1/2 -translate-y-1/2 flex flex-col gap-2 pointer-events-auto">
                                 {[
                                     { icon: AlertCircle, title: 'Pathological Border' },
                                     { icon: Layers, title: 'Iso-Contour Elevation' },
@@ -217,9 +217,9 @@ export default function CameraSection({
                                         </div>
                                     );
                                 })}
-                            </div>
+                            </div> */}
 
-                            <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center pointer-events-none text-[10px] text-white font-medium bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/15">
+                            {/* <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center pointer-events-none text-[10px] text-white font-medium bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/15">
                                 <div className="flex items-center gap-3">
                                     <span className="flex items-center gap-1">
                                         <span className="w-2 h-2 rounded-full bg-white border border-stone-400" /> Perimeter (22%)
@@ -232,13 +232,13 @@ export default function CameraSection({
                                     </span>
                                 </div>
                                 <span className="font-mono text-emerald-400 font-bold">Concordant (89.4%)</span>
-                            </div>
+                            </div> */}
                         </div>
 
-                        <div className="flex justify-between items-center text-[10px] text-slate-500 px-2 pt-1">
+                        {/* <div className="flex justify-between items-center text-[10px] text-slate-500 px-2 pt-1">
                             <span>Topological elevation reveals gradient flow towards the primary cellular lesion focus.</span>
                             <span className="font-bold text-[#e4765d]">Zero False Positive Artifacts</span>
-                        </div>
+                        </div> */}
                     </div>
                 )}
 

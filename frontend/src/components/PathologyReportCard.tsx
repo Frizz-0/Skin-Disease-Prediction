@@ -10,7 +10,7 @@ import {
     CheckCircle2,
     Stethoscope,
     Pill,
-    Sparkles,
+    // Sparkles,
     Loader2
 } from 'lucide-react';
 import type { VlmClinicalReport } from '../types/clinical';
@@ -97,11 +97,11 @@ export default function PathologyReportCard({
                         <div>
                             <div className="flex items-center gap-2">
                                 <h3 className="text-base font-extrabold tracking-tight">Pathology Report</h3>
-                                {vlmReport && (
+                                {/* {vlmReport && (
                                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/20 text-[9px] font-bold border border-white/30">
                                         <Sparkles className="w-2.5 h-2.5" /> AI REPORT
                                     </span>
-                                )}
+                                )} */}
                             </div>
                             <p className="text-white/80 text-xs mt-0.5">
                                 {isVlmLoading
@@ -375,7 +375,7 @@ export default function PathologyReportCard({
                         onClick={onGenerateReport}
                         disabled={!hasScanData || isVlmLoading}
                         className={`w-full py-3.5 rounded-[20px] text-xs font-black shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-200 flex items-center justify-center gap-2 ${!hasScanData
-                            ? 'bg-white/35 text-white/75 cursor-not-allowed'
+                            ? 'bg-white/100 text-[#c8452e] cursor-not-allowed'
                             : isVlmLoading
                                 ? 'bg-white/90 text-[#c8452e] cursor-wait'
                                 : 'bg-white text-[#c8452e] hover:bg-stone-50 active:scale-[0.98] hover:shadow-[0_6px_24px_rgba(0,0,0,0.22)] cursor-pointer'
@@ -387,7 +387,7 @@ export default function PathologyReportCard({
                             <Stethoscope className="w-4 h-4 text-[#c8452e]" />
                         )}
                         {!hasScanData
-                            ? 'SCAN LESION TO ENABLE REPORT'
+                            ? 'SCAN TO GENERATE REPORT'
                             : isVlmLoading
                                 ? 'GENERATING CLINICAL REPORT...'
                                 : vlmReport

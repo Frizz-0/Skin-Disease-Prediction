@@ -11,6 +11,13 @@ ort.env.wasm.simd = true;
 let session: ort.InferenceSession | null = null;
 let sessionPromise: Promise<ort.InferenceSession> | null = null;
 
+export async function createInferenceSession(modelUrl: string): Promise<ort.InferenceSession> {
+  return await ort.InferenceSession.create(modelUrl, {
+    executionProviders: ['wasm'],
+    graphOptimizationLevel: 'all',
+  });
+}
+
 export async function initModel() {
   if (typeof window === "undefined") return null;
   if (session) return session;

@@ -30,9 +30,12 @@ export async function fetchVlmClinicalReport(
             top_differentials: payload.topDifferentials || [],
             erythema_index: safeErythema,
             fitzpatrick_type: typeof payload.fitzpatrickType === 'number' ? payload.fitzpatrickType : null,
-            body_location: payload.patientContext?.bodyLocation || 'Unspecified',
-            duration: payload.patientContext?.duration || 'Unspecified',
+            body_location: payload.patientContext?.bodyLocation || 'Not specified',
+            duration: payload.patientContext?.duration || 'Not specified',
             patient_symptoms: payload.patientContext?.symptoms || [],
+            age: payload.patientContext?.age?.trim() || 'Not specified',
+            gender: payload.patientContext?.gender || 'Not specified',
+            clinical_notes: payload.patientContext?.clinicalNotes?.trim() || 'Not specified',
         }),
     });
 

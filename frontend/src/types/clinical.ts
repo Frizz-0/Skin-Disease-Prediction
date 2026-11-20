@@ -1,18 +1,22 @@
 export const FITZPATRICK_LABELS = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 
-export const BODY_LOCATIONS = ['Face / Neck', 'Arm / Hand', 'Torso', 'Back', 'Leg / Foot'];
-export const LESION_DURATIONS = ['< 1 week', '1–4 weeks', '1–6 months', '6+ months'];
+export const BODY_LOCATIONS = ['Head / Neck', 'Arm / Hand', 'Torso', 'Back', 'Leg / Foot'];
+export const LESION_DURATIONS = ['< 1 W', '1–4 W', '1–6 M', '6+ M'];
 export const PATIENT_SYMPTOM_OPTIONS = [
     'Itchy',
-    'Painful / Tender',
-    'Bleeding / Oozing',
-    'Growing / Changing'
+    'Tender / Pain',
+    'Bleeding / Ooze',
+    'Changing Size'
 ];
+export const GENDER_OPTIONS = ['Male', 'Female', 'Other'] as const;
 
 export interface PatientContext {
     bodyLocation: string;
     duration: string;
     symptoms: string[];
+    age?: string;
+    gender?: 'Male' | 'Female' | 'Other' | '';
+    clinicalNotes?: string;
 }
 
 export interface TreatmentMethod {

@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo, useEffect, type ChangeEvent } from 'react';
 import type { CameraViewHandle, SpectralMode } from './components/CameraView';
 import { useInference } from './hooks/useInference';
-import type { VlmClinicalReport, PatientContext } from './types/clinical';
+import type { VlmClinicalReport, PatientContext, ClinicalIntervention } from './types/clinical';
 import { generateIsoContourMap } from './utils/contourGenerator';
 import { fetchVlmClinicalReport } from './services/groqVlmService';
 
@@ -10,6 +10,57 @@ import CameraSection from './components/CameraSection';
 import PathologyReportCard from './components/PathologyReportCard';
 import BiometricsPanel from './components/BiometricsPanel';
 import ReportView from './components/ReportView';
+
+function buildInstantInterventions(params: {
+  hasScan: boolean;
+  isHighRisk: boolean;
+  patientContext: PatientContext;
+}): ClinicalIntervention[] {
+  const { hasScan, isHighRisk, patientContext } = params;
+  if (!hasScan) return [];
+
+  const hasBleedingOrGrowth =
+    patientContext.symptoms.includes('Bleeding / Ooze') ||
+    patientContext.symptoms.includes('Changing Size');
+
+  const items: ClinicalIntervention[] = [];
+
+  if (isHighRisk || hasBleedingOrGrowth) {
+    items.push({
+      name: 'In-Person Dermoscopy Evaluation',
+      code: 'DERM-99203',
+      urgency: 'IMMEDIATE',
+    });
+  } else {
+    items.push({
+      name: 'GP / Teledermatology Review',
+      code: 'TRIAGE-101',
+      urgency: 'SHORT_TERM',
+    });
+  }
+
+  items.push({
+    name: `Ruler Scale Photo (${patientContext.bodyLocation})`,
+    code: 'PHOTO-DOC',
+    urgency: 'SHORT_TERM',
+  });
+
+  if (patientContext.symptoms.includes('Itchy') || patientContext.symptoms.includes('Tender / Pain')) {
+    items.push({
+      name: 'Avoid Friction & Fragrance Irritants',
+      code: 'SKIN-CARE',
+      urgency: 'ROUTINE',
+    });
+  } else {
+    items.push({
+      name: 'Broad-Spectrum SPF 50+ Protection',
+      code: 'UV-GUARD',
+      urgency: 'ROUTINE',
+    });
+  }
+
+  return items;
+}
 
 export default function App() {
   const cameraRef = useRef<CameraViewHandle | null>(null);
@@ -24,8 +75,8 @@ export default function App() {
 
   // Patient Symptom & Anatomical Context
   const [patientContext, setPatientContext] = useState<PatientContext>({
-    bodyLocation: 'Face / Neck',
-    duration: '1–4 weeks',
+    bodyLocation: 'Head / Neck',
+    duration: '1–4 wks',
     symptoms: []
   });
 
@@ -60,7 +111,6 @@ export default function App() {
     topPrediction.className.toLowerCase().includes('carcinoma')
     : false;
 
-  // Triggered onClick of "Generate Clinical Report"
   const handleGenerateClinicalReport = async () => {
     if (!rawSnapshot || !topPrediction || isVlmLoading) return;
 
@@ -89,32 +139,16 @@ export default function App() {
     }
   };
 
-  const hasReportedEvolution =
-    patientContext.symptoms.includes('Growing / Changing') ||
-    patientContext.symptoms.includes('Bleeding / Oozing');
-
-  const abcdData = useMemo(() => {
-    if (!topPrediction) {
-      return [
-        { label: 'Asymmetry:', value: 'STANDBY', checked: false },
-        { label: 'Border:', value: 'STANDBY', checked: false },
-        { label: 'Color:', value: 'STANDBY', checked: false },
-        { label: 'Diameter:', value: 'STANDBY', checked: false },
-        { label: 'Evolution:', value: 'STANDBY', checked: false }
-      ];
+  const activeInterventions = useMemo(() => {
+    if (vlmReport?.recommended_interventions && vlmReport.recommended_interventions.length > 0) {
+      return vlmReport.recommended_interventions;
     }
-    return [
-      { label: 'Asymmetry:', value: isHighRisk && confidenceScore > 40 ? 'POSITIVE' : 'SYMMETRIC', checked: isHighRisk },
-      { label: 'Border:', value: isHighRisk ? 'IRREGULAR' : 'CIRCUMSCRIBED', checked: isHighRisk },
-      { label: 'Color:', value: isHighRisk ? 'VARIEGATED' : 'HOMOGENEOUS', checked: isHighRisk },
-      { label: 'Diameter:', value: confidenceScore > 45 ? '>6.0mm' : 'SUB-6mm', checked: confidenceScore > 45 },
-      {
-        label: 'Evolution:',
-        value: hasReportedEvolution ? 'REPORTED' : isHighRisk ? 'SUSPECT' : 'STABLE',
-        checked: hasReportedEvolution || isHighRisk
-      }
-    ];
-  }, [topPrediction, isHighRisk, confidenceScore, hasReportedEvolution]);
+    return buildInstantInterventions({
+      hasScan: Boolean(rawSnapshot && topPrediction),
+      isHighRisk,
+      patientContext,
+    });
+  }, [vlmReport, rawSnapshot, topPrediction, isHighRisk, patientContext]);
 
   const computeErythemaIndex = (canvas: HTMLCanvasElement) => {
     const ctx = canvas.getContext('2d');
@@ -143,11 +177,7 @@ export default function App() {
     setErythemaIndex(parseFloat(indexPct.toFixed(1)));
   };
 
-  const handleStartDiagnosis = async () => {
-    if (!cameraRef.current) return;
-    const canvas = cameraRef.current.captureCanvas();
-    if (!canvas) return;
-
+  const processCapturedCanvas = async (canvas: HTMLCanvasElement) => {
     setVlmReport(null);
     setVlmError(null);
     setRawSnapshot(canvas.toDataURL('image/jpeg', 0.94));
@@ -158,6 +188,13 @@ export default function App() {
     } catch (err) {
       console.error('Diagnosis Failed:', err);
     }
+  };
+
+  const handleStartDiagnosis = async () => {
+    if (!cameraRef.current) return;
+    const canvas = cameraRef.current.captureCanvas();
+    if (!canvas) return;
+    await processCapturedCanvas(canvas);
   };
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -174,11 +211,7 @@ export default function App() {
         const ctx = offscreen.getContext('2d');
         if (ctx) {
           ctx.drawImage(img, 0, 0, 224, 224);
-          setVlmReport(null);
-          setVlmError(null);
-          setRawSnapshot(offscreen.toDataURL('image/jpeg', 0.94));
-          computeErythemaIndex(offscreen);
-          runInference(offscreen);
+          processCapturedCanvas(offscreen);
         }
       };
       img.src = event.target?.result as string;
@@ -198,7 +231,7 @@ export default function App() {
       style={{
         background: 'linear-gradient(to bottom, #D9CFD7 0%, #f4f0e8 50%, #eae4d8 100%)'
       }}
-      className="min-h-screen text-slate-800 font-sans p-2.5 sm:p-4 lg:p-6 select-text flex flex-col gap-3.5 sm:gap-5 max-w-[1740px] mx-auto relative overflow-hidden transition-all duration-300"
+      className="min-h-screen w-full text-slate-800 font-sans p-2.5 sm:p-4 lg:p-6 select-text flex flex-col gap-3.5 sm:gap-5 max-w-[1740px] mx-auto relative overflow-x-clip transition-all duration-300"
     >
       <div className="fixed top-12 left-10 w-96 h-96 rounded-full bg-gradient-to-tr from-[#e4765d]/10 to-amber-200/20 blur-3xl pointer-events-none animate-pulse -z-10" />
       <div className="fixed bottom-12 right-10 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#c58d6e]/10 to-rose-200/20 blur-3xl pointer-events-none -z-10" />
@@ -223,7 +256,6 @@ export default function App() {
           isHighRisk={isHighRisk}
           erythemaIndex={erythemaIndex}
           skinTypePrediction={skinTypePrediction}
-          abcdData={abcdData}
           patientContext={patientContext}
           vlmReport={vlmReport}
           isVlmLoading={isVlmLoading}
@@ -266,10 +298,9 @@ export default function App() {
             topPredictions={topPredictions}
             erythemaIndex={erythemaIndex}
             skinTypePrediction={skinTypePrediction}
-            abcdData={abcdData}
             patientContext={patientContext}
             onPatientContextChange={setPatientContext}
-            interventions={vlmReport?.recommended_interventions || []}
+            interventions={activeInterventions}
             isVlmLoading={isVlmLoading}
           />
         </main>
