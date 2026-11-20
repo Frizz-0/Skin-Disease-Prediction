@@ -10,7 +10,13 @@ export interface ClinicalReportPayload {
     patientContext: PatientContext;
 }
 
-const API_BASE = import.meta.env.VITE_BACKEND_URL || '';
+const rawApiBase =
+    import.meta.env.VITE_API_URL ||
+    import.meta.env.VITE_BACKEND_URL ||
+    '';
+
+// Strip trailing slashes to prevent FastAPI 404s on `//clinical-report`
+const API_BASE_URL = rawApiBase.replace(/\/+$/, '');
 
 export async function fetchVlmClinicalReport(
     payload: ClinicalReportPayload
@@ -18,7 +24,7 @@ export async function fetchVlmClinicalReport(
     const safeConfidence = Number.isFinite(payload.confidence) ? Math.round(payload.confidence) : 0;
     const safeErythema = Number.isFinite(payload.erythemaIndex) ? payload.erythemaIndex : 0.0;
 
-    const response = await fetch(`${API_BASE}/clinical-report`, {
+    const response = await fetch(`${API_BASE_URL}/clinical-report`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
