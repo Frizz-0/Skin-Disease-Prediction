@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/assets/cutis-logo.png" alt="CUTIS DERM AI Logo" width="140" />
+  <img src="frontend/public/Cutis_logo_name.png" alt="CUTIS DERM AI Logo" width="140" />
   <h1>CUTIS DERM AI</h1>
   <p><strong>Cutaneous Triage, Optical Saliency &amp; VLM Clinical Reporting Platform</strong></p>
 </div>
