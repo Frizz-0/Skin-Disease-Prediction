@@ -34,19 +34,20 @@
 
 ### End-to-End Application Walkthrough
 
-![CUTIS DERM AI Walkthrough](docs/assets/walkthrough.gif)
+![CUTIS DERM AI Walkthrough](frontend/public/Cutis_Demo.gif)
 *Placeholder: Replace `docs/assets/walkthrough.gif` with a screen recording demonstrating live capture, saliency overlay inspection, patient context entry, VLM report generation, and A4 PDF export.*
 
 ### Interface Screenshots
 
 | Scanner Workstation | Analysis & Biometrics Panel |
 | :---: | :---: |
-| ![Scanner Workstation](docs/assets/scanner-workstation.png) | ![Biometrics and Patient Context](docs/assets/biometrics-panel.png) |
+| ![Scanner Workstation](frontend/public/Cutis_scanner.jpg) 
+| ![Biometrics and Patient Context](frontend/public/Cutis_biometrics.jpg) |
 | *Live optical feed, quality gate telemetry, and Top-5 differential predictions.* | *5-axis spider radar, Erythema Index, Fitzpatrick baseline, and demographic inputs.* |
 
 | Clinical Triage Report (A4 Print Layout) |
 | :---: |
-| ![Clinical Report View](docs/assets/clinical-report.png) |
+| ![Clinical Report View](frontend/public/Cutis_report.jpg) |
 | *Multi-page A4 report featuring Grad-CAM iso-contours, ICD-10 context, and care guidance.* |
 
 ---
