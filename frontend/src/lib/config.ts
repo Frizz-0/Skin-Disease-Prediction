@@ -1,5 +1,7 @@
 const configuredBackendURL = (
-  import.meta.env.VITE_GRADCAM_API_URL || import.meta.env.VITE_BACKEND_URL
+  import.meta.env.VITE_GRADCAM_API_URL ||
+  import.meta.env.VITE_API_URL ||
+  import.meta.env.VITE_BACKEND_URL
 )?.trim().replace(/\/+$/, "");
 const isLocalDevelopment =
   typeof window !== "undefined" &&
