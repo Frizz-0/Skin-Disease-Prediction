@@ -41,15 +41,13 @@
 
 | Scanner Workstation | Analysis & Biometrics Panel |
 | :---: | :---: |
-| ![Scanner Workstation](frontend/public/Cutis_scanner.jpg) 
-| ![Biometrics and Patient Context](frontend/public/Cutis_biometrics.jpg) |
+| <img src="frontend/public/Cutis_scanner.jpg" alt="Scanner Workstation" width="410" /> | <img src="frontend/public/Cutis_biometrics.jpg" alt="Biometrics and Patient Context" width="410" /> |
 | *Live optical feed, quality gate telemetry, and Top-5 differential predictions.* | *5-axis spider radar, Erythema Index, Fitzpatrick baseline, and demographic inputs.* |
 
 | Clinical Triage Report (A4 Print Layout) |
 | :---: |
-| ![Clinical Report View](frontend/public/Cutis_report.jpg) |
+| <img src="frontend/public/Cutis_report.jpg" alt="Clinical Report View" width="680" /> |
 | *Multi-page A4 report featuring Grad-CAM iso-contours, ICD-10 context, and care guidance.* |
-
 ---
 
 ## Key Features
